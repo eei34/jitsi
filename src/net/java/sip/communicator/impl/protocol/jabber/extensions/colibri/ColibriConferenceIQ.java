@@ -1542,6 +1542,7 @@ public class ColibriConferenceIQ
      * @deprecated
      */
     public static class ChannelBundle
+        extends TransportCommon
     {
         /**
          * The name of the "channel-bundle" element.
@@ -1564,11 +1565,6 @@ public class ColibriConferenceIQ
         private String id;
 
         /**
-         * The transport element of this <tt>ChannelBundle</tt>.
-         */
-        private IceUdpTransportPacketExtension transport;
-
-        /**
          * Initializes a new <tt>ChannelBundle</tt> with the given ID.
          * @param id the ID.
          */
@@ -1587,30 +1583,12 @@ public class ColibriConferenceIQ
         }
 
         /**
-         * Returns the transport element of this <tt>ChannelBundle</tt>.
-         * @return  the transport element of this <tt>ChannelBundle</tt>.
-         */
-        public IceUdpTransportPacketExtension getTransport()
-        {
-            return transport;
-        }
-
-        /**
          * Sets the ID of this <tt>ChannelBundle</tt>.
          * @param id the ID to set.
          */
         public void setId(String id)
         {
             this.id = id;
-        }
-
-        /**
-         * Sets the transport element of this <tt>ChannelBundle</tt>.
-         * @param transport the transport to set.
-         */
-        public void setTransport(IceUdpTransportPacketExtension transport)
-        {
-            this.transport = transport;
         }
 
         /**
@@ -1647,6 +1625,7 @@ public class ColibriConferenceIQ
      * @author Pawel Domas
      */
     public static abstract class ChannelCommon
+        extends TransportCommon
     {
         /**
          * The name of the "channel-bundle-id" attribute.
@@ -1730,8 +1709,6 @@ public class ColibriConferenceIQ
          */
         private Boolean initiator;
 
-        private IceUdpTransportPacketExtension transport;
-
         /**
          * Initializes this class with given XML <tt>elementName</tt>.
          * @param elementName XML element name to be used for producing XML
@@ -1787,16 +1764,11 @@ public class ColibriConferenceIQ
             return id;
         }
 
-        public IceUdpTransportPacketExtension getTransport()
-        {
-            return transport;
-        }
-
         /**
          * Indicates whether there are some contents that should be printed as
          * child elements of this IQ. If <tt>true</tt> is returned
-         * {@link #printContent(StringBuilder)} method will be called when
-         * XML representation of this IQ is being constructed.
+         * {@link #printContent(IQChildElementXmlStringBuilder)} method will be
+         * called when XML representation of this IQ is being constructed.
          * @return <tt>true</tt> if there are content to be printed as child
          *         elements of this IQ or <tt>false</tt> otherwise.
          */
@@ -1904,11 +1876,6 @@ public class ColibriConferenceIQ
         public void setInitiator(Boolean initiator)
         {
             this.initiator = initiator;
-        }
-
-        public void setTransport(IceUdpTransportPacketExtension transport)
-        {
-            this.transport = transport;
         }
 
         /**
@@ -2260,6 +2227,7 @@ public class ColibriConferenceIQ
      * Represents an 'endpoint' element.
      */
     public static class Endpoint
+        extends TransportCommon
     {
         /**
          * The name of the 'displayname' attribute.
@@ -2295,11 +2263,6 @@ public class ColibriConferenceIQ
          * The 'stats-id' of this <tt>Endpoint</tt>.
          */
         private String statsId;
-
-        /**
-         * The transport element of this <tt>Endpoint</tt>.
-         */
-        private IceUdpTransportPacketExtension transport;
 
         /**
          * Initializes a new <tt>Endpoint</tt> with the given ID and display
@@ -2343,30 +2306,12 @@ public class ColibriConferenceIQ
         }
 
         /**
-         * Returns the transport element of this <tt>ChannelBundle</tt>.
-         * @return  the transport element of this <tt>ChannelBundle</tt>.
-         */
-        public IceUdpTransportPacketExtension getTransport()
-        {
-            return transport;
-        }
-
-        /**
          * Sets the display name of this <tt>Endpoint</tt>.
          * @param displayName the display name to set.
          */
         public void setDisplayName(String displayName)
         {
             this.displayName = displayName;
-        }
-
-        /**
-         * Sets the transport element of this <tt>ChannelBundle</tt>.
-         * @param transport the transport to set.
-         */
-        public void setTransport(IceUdpTransportPacketExtension transport)
-        {
-            this.transport = transport;
         }
 
         /**
@@ -2722,6 +2667,32 @@ public class ColibriConferenceIQ
         public void setPort(int port)
         {
             this.port = port;
+        }
+    }
+
+    public static class TransportCommon
+    {
+        /**
+         * The transport element.
+         */
+        protected IceUdpTransportPacketExtension transport;
+
+        /**
+         * Returns the transport element.
+         * @return  the transport element.
+         */
+        public IceUdpTransportPacketExtension getTransport()
+        {
+            return transport;
+        }
+
+        /**
+         * Sets the transport element.
+         * @param transport the transport to set.
+         */
+        public void setTransport(IceUdpTransportPacketExtension transport)
+        {
+            this.transport = transport;
         }
     }
 }
